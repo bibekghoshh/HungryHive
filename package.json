@@ -2,18 +2,22 @@
   "name": "hungryhive",
   "version": "1.0.0",
   "description": "let's build this from scratch and enjoy the process",
-  "main": "App.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
   },
   "author": "Bibek Ghosh",
   "license": "ISC",
   "devDependencies": {
     "parcel": "^2.10.0",
-    "process": "^0.11.10"
+    "postcss": "^8.4.31",
+    "process": "^0.11.10",
+    "tailwindcss": "^3.3.3"
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.11.0"
   }
 }

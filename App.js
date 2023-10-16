@@ -1,10 +1,12 @@
 import { createRoot } from "react-dom/client";
+import Header from "./src/components/Header";
+import "./index.css";
 
 
 const App = () => {
   return (
     <div>
-        <h1>Build it with parcel</h1>
+        <Header/>
     </div>
   )
 };

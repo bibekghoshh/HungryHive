@@ -5,12 +5,13 @@ import RestaurentCard from "./RestaurantCard";
 const Body = () => {
   const [restaurantList, setRestaurantList] = useState([]);
   const [newRestaurantList, setNewRestaurantList] = useState([]);
-
-  const [searchText, setSearchText] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  console.log(restaurantList);
+  console.log(searchText);
 
   const btnStyle =
     "px-3 py-1 text-gray-500 border-gray-400 rounded-full border-[1px] shadow-md";
-  console.log(restaurantList);
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -27,6 +28,23 @@ const Body = () => {
     );
   };
 
+  const handleSearch = () => {
+    const searchFilter = newRestaurantList.filter(
+      (restaurant) =>
+        restaurant?.info?.name?.toLowerCase().includes(searchText) //||
+        // restaurant.info.cuisines.toLowerCase().includes(searchText)
+        // restaurant?.info?.cuisines.includes(searchText)
+    );
+    console.log(searchFilter);
+    setRestaurantList(searchFilter);
+  };
+
+//   const a=newRestaurantList[0]?.info?.name?.toLowerCase().includes("mc");
+//   console.log(a);
+//   const b=newRestaurantList[0]?.info?.cuisines?.filter((c)=>(c.toLowerCase().includes("pizzas")));
+//         console.log(b);
+
+        
   const rating = () => {
     const rating = newRestaurantList.filter(
       (restaurant) => restaurant.info.avgRating > 4
@@ -35,15 +53,21 @@ const Body = () => {
   };
   const costBetween300To600 = () => {
     const cost = newRestaurantList.filter(
-      (restaurant) => parseInt(restaurant.info.costForTwo.slice(1, 4)) > 300 && parseInt(restaurant.info.costForTwo.slice(1, 4)) < 600
+      (restaurant) =>
+        parseInt(restaurant.info.costForTwo.slice(1, 4)) > 300 &&
+        parseInt(restaurant.info.costForTwo.slice(1, 4)) < 600
     );
     setRestaurantList(cost);
   };
   const costLessThan300 = () => {
     const cost = newRestaurantList.filter(
-      (restaurant) => parseInt(restaurant.info.costForTwo.slice(1, 4)) < 300 );
+      (restaurant) => parseInt(restaurant.info.costForTwo.slice(1, 4)) < 300
+    );
     setRestaurantList(cost);
   };
+  const showAll=()=>{
+    setRestaurantList(newRestaurantList);
+  }
 
   return (
     <div className="flex flex-col items-center justify-center gap-10 ">
@@ -52,10 +76,13 @@ const Body = () => {
           type="text"
           placeholder="Search Your restaurant"
           value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
+          onChange={(e) => setSearchText(e.target.value.toLowerCase())}
           className="px-6 w-[400px] py-2 border-2 border-blue-500 rounded-l-[50px] outline-none"
         />
-        <button className="px-4 py-2 bg-blue-500 rounded-r-[50px] text-lg text-white">
+        <button
+          onClick={handleSearch}
+          className="px-4 py-2 bg-blue-500 rounded-r-[50px] text-lg text-white"
+        >
           Search
         </button>
       </div>
@@ -63,9 +90,14 @@ const Body = () => {
         <button className={btnStyle} onClick={rating}>
           Rating 4.0+
         </button>
-        <button className={btnStyle} onClick={costLessThan300}>&lt;  Rs. 300</button>
+        <button className={btnStyle} onClick={costLessThan300}>
+          &lt; Rs. 300
+        </button>
         <button className={btnStyle} onClick={costBetween300To600}>
           Rs. 300 - Rs. 600
+        </button>
+        <button className={btnStyle} onClick={showAll}>
+          Show all
         </button>
       </div>
 

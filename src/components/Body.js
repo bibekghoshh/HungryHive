@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { RESTAURANT_LIST } from "../utils/constrains";
 import RestaurentCard from "./RestaurantCard";
+import { Link } from "react-router-dom";
 
 const Body = () => {
   const [restaurantList, setRestaurantList] = useState([]);
   const [newRestaurantList, setNewRestaurantList] = useState([]);
   const [searchText, setSearchText] = useState("");
-  console.log(restaurantList);
-  console.log(searchText);
+//   console.log(restaurantList);
+//   console.log(searchText);
 
   const btnStyle =
     "px-3 py-1 text-gray-500 border-gray-400 rounded-full border-[1px] shadow-md";
@@ -103,7 +104,9 @@ const Body = () => {
 
       <div className="w-[1250px] flex flex-wrap gap-8 border-4 border-red-300 mt-1 items-center justify-center">
         {restaurantList.map((restaurant) => (
+            <Link to={"/restaurants/"+restaurant.info.id}>
           <RestaurentCard key={restaurant.info.id} resdata={restaurant} />
+            </Link>
         ))}
       </div>
     </div>

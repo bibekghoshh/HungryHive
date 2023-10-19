@@ -36,8 +36,8 @@ const RestaurantMenu = () => {
     );
 
   return (
-    <div className="flex items-center justify-center mt-8 border-4 border-red-700">
-      <div className="w-[900px] border-4 flex flex-col gap-5">
+    <div className="flex items-center justify-center mt-8  min-w-[1300px]">
+      <div className="w-[900px]  flex flex-col gap-5">
         <div className="flex justify-between">
           <div className="text-[10px] text-slate-400">
             <span className="cursor-pointer hover:text-slate-600">Home </span> /{" "}
@@ -63,7 +63,7 @@ const RestaurantMenu = () => {
             <p className="text-[10px] font-bold text-slate-400">{totalRatingsString}</p>
           </div>
         </div>
-        <div className="border-[1px] mx-4 mt-2"></div>
+        <div className="border-[1px] mx-4 mt-8 border-dashed border-slate-300"></div>
         <div>
           {
             category.map((category,index)=>(

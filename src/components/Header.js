@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <div className="shadow-lg min-w-[1400px]">
+    <div className="shadow-lg min-w-[1300px]">
       <div className="flex justify-between mx-36">
         <div className="flex gap-10">
           <div>

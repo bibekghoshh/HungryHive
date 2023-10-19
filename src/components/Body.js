@@ -71,7 +71,7 @@ const Body = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center gap-10 ">
+    <div className="flex flex-col items-center justify-center gap-10 min-w-[1400px] border-4">
       <div className="mt-20">
         <input
           type="text"

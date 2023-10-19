@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { RESTAURANT_MENU } from "../utils/constrains";
 import { AiFillStar, AiOutlineSearch } from "react-icons/ai";
 import RestaurantCategory from "./RestaurantCategory";
+import RestaurantMenuShimmerUi from "./shimmerUi/RestaurantMenuShimmerUi";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
@@ -23,7 +24,7 @@ const RestaurantMenu = () => {
     // console.log(data);
   };
 
-  if (restaurantMenu === null) return <h1>Loading</h1>;
+  if (restaurantMenu === null) return <RestaurantMenuShimmerUi/>;
 
   const { name, areaName, city, avgRating, totalRatingsString, cuisines } =
     restaurantMenu?.cards[0]?.card?.card?.info;

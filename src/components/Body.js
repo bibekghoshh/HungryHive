@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { RESTAURANT_LIST } from "../utils/constrains";
 import RestaurentCard from "./RestaurantCard";
 import { Link } from "react-router-dom";
+import RestaurantCardShimmerUi from "./shimmerUi/RestaurantCardShimmerUi";
 
 const Body = () => {
-  const [restaurantList, setRestaurantList] = useState([]);
-  const [newRestaurantList, setNewRestaurantList] = useState([]);
+  const [restaurantList, setRestaurantList] = useState(null);
+  const [newRestaurantList, setNewRestaurantList] = useState(null);
   const [searchText, setSearchText] = useState("");
 //   console.log(restaurantList);
 //   console.log(searchText);
@@ -71,7 +72,7 @@ const Body = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center gap-10 min-w-[1400px] border-4">
+    <div className="flex flex-col items-center justify-center gap-10 min-w-[1300px] border-4">
       <div className="mt-20">
         <input
           type="text"
@@ -102,10 +103,10 @@ const Body = () => {
         </button>
       </div>
 
-      <div className="w-[1250px] flex flex-wrap gap-8 border-4 border-red-300 mt-1 items-center justify-center">
-        {restaurantList.map((restaurant) => (
-            <Link to={"/restaurants/"+restaurant.info.id}>
-          <RestaurentCard key={restaurant.info.id} resdata={restaurant} />
+      <div className="w-[1250px] flex flex-wrap gap-8  mt-1 items-center justify-center">
+        {restaurantList===null?<RestaurantCardShimmerUi/>: restaurantList.map((restaurant) => (
+            <Link to={"/restaurants/"+restaurant.info.id} key={restaurant.info.id}>
+          <RestaurentCard  resdata={restaurant} />
             </Link>
         ))}
       </div>

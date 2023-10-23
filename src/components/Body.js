@@ -78,7 +78,7 @@ const Body = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-10 min-w-[1300px] border-4">
+    <div className="flex flex-col items-center justify-center gap-10 min-w-[1300px]">
       <div className="mt-20">
         <input
           type="text"
@@ -122,7 +122,7 @@ const Body = () => {
             </Link>
           ))
         ) : (
-          <div className="text-lg text-center  text-slate-600">Not Found....!</div>
+          <div className="text-lg text-center text-slate-600">Not Found....!</div>
         )}
       </div>
     </div>

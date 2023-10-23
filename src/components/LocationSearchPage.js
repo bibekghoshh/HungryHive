@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import LocationItemCard from "./LocationItemCard";
 import { SEARCH_LOCATION } from "../utils/constrains";
+import LatLngContext from "../context/LatLngContext";
 
 const LocationSeachPage = ({onClose}) => {
   const [locationSearchText, setLocationSearchText] = useState("");
   const [locationLists, setLocationLists] = useState(null);
+  const {isSearchOpen,setIsSearchOpen}=useContext(LatLngContext);
 
   console.log(locationLists);
 
@@ -31,9 +33,9 @@ const LocationSeachPage = ({onClose}) => {
   // if(locationLists===null) return <h1>Loading.......</h1>
 
   return (
-    <div className="w-[600px] h-[700px]  overflow-y-scroll z-10  fixed bg-white">
+    <div className="w-[600px] h-full  overflow-y-scroll z-20  fixed bg-white">
       <div className="pl-[20%] mt-8">
-        <div onClick={onClose} className="w-10 p-2 cursor-pointer">
+        <div onClick={()=>setIsSearchOpen(false)} className="w-10 p-2 cursor-pointer">
           <AiOutlineClose className="text-2xl text-slate-600" />
         </div>
         <div className="flex items-center my-6 mb-6">

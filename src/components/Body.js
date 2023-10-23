@@ -1,52 +1,58 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { RESTAURANT_LIST } from "../utils/constrains";
 import RestaurentCard from "./RestaurantCard";
 import { Link } from "react-router-dom";
 import RestaurantCardShimmerUi from "./shimmerUi/RestaurantCardShimmerUi";
+import LatLngContext from "../context/LatLngContext";
 
 const Body = () => {
   const [restaurantList, setRestaurantList] = useState(null);
   const [newRestaurantList, setNewRestaurantList] = useState(null);
   const [searchText, setSearchText] = useState("");
-//   console.log(restaurantList);
-//   console.log(searchText);
+
+  const { latlng } = useContext(LatLngContext);
+  // console.log(restaurantList);
+  //   console.log(searchText);
 
   const btnStyle =
     "px-3 py-1 text-gray-500 border-gray-400 rounded-full border-[1px] shadow-md";
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    const fetchData = async () => {
+      const response = await fetch(
+        RESTAURANT_LIST + latlng.lat + "&lng=" + latlng.lng
+      );
+      // const response = await fetch(RESTAURANT_LIST);
+      const data = await response.json();
+      console.log(data);
+      setRestaurantList(
+        data?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants
+      );
+      setNewRestaurantList(
+        data?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants
+      );
+    };
 
-  const fetchData = async () => {
-    const response = await fetch(RESTAURANT_LIST);
-    const data = await response.json();
-    // console.log(data);
-    setRestaurantList(
-      data?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-    setNewRestaurantList(
-      data?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-  };
+    fetchData();
+  }, [latlng]);
 
   const handleSearch = () => {
     const searchFilter = newRestaurantList.filter(
-      (restaurant) =>
-        restaurant?.info?.name?.toLowerCase().includes(searchText) //||
-        // restaurant.info.cuisines.toLowerCase().includes(searchText)
-        // restaurant?.info?.cuisines.includes(searchText)
+      (restaurant) => restaurant?.info?.name?.toLowerCase().includes(searchText) //||
+      // restaurant.info.cuisines.toLowerCase().includes(searchText)
+      // restaurant?.info?.cuisines.includes(searchText)
     );
     console.log(searchFilter);
     setRestaurantList(searchFilter);
   };
 
-//   const a=newRestaurantList[0]?.info?.name?.toLowerCase().includes("mc");
-//   console.log(a);
-//   const b=newRestaurantList[0]?.info?.cuisines?.filter((c)=>(c.toLowerCase().includes("pizzas")));
-//         console.log(b);
+  //   const a=newRestaurantList[0]?.info?.name?.toLowerCase().includes("mc");
+  //   console.log(a);
+  //   const b=newRestaurantList[0]?.info?.cuisines?.filter((c)=>(c.toLowerCase().includes("pizzas")));
+  //         console.log(b);
 
-        
   const rating = () => {
     const rating = newRestaurantList.filter(
       (restaurant) => restaurant.info.avgRating > 4
@@ -67,9 +73,9 @@ const Body = () => {
     );
     setRestaurantList(cost);
   };
-  const showAll=()=>{
+  const showAll = () => {
     setRestaurantList(newRestaurantList);
-  }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center gap-10 min-w-[1300px] border-4">
@@ -104,11 +110,20 @@ const Body = () => {
       </div>
 
       <div className="w-[1250px] flex flex-wrap gap-8  mt-1 items-center justify-center">
-        {restaurantList===null?<RestaurantCardShimmerUi/>: restaurantList.map((restaurant) => (
-            <Link to={"/restaurants/"+restaurant.info.id} key={restaurant.info.id}>
-          <RestaurentCard  resdata={restaurant} />
+        {restaurantList === null || restaurantList === undefined ? (
+          <RestaurantCardShimmerUi />
+        ) : restaurantList.length != 0 ? (
+          restaurantList.map((restaurant) => (
+            <Link
+              to={"/restaurants/" + restaurant.info.id}
+              key={restaurant.info.id}
+            >
+              <RestaurentCard resdata={restaurant} />
             </Link>
-        ))}
+          ))
+        ) : (
+          <div className="text-lg text-center  text-slate-600">Not Found....!</div>
+        )}
       </div>
     </div>
   );

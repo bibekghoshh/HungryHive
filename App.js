@@ -7,14 +7,14 @@ import About from "./src/components/About";
 import ItemCart from "./src/components/ItemCart";
 import Error from "./src/components/Error";
 import RestaurantMenu from "./src/components/RestaurantMenu";
-import LocationSeachPage from "./src/components/LocationSearchPage";
+import UserContextProvider from "./src/context/UserContextProvider";
 
 const App = () => {
   return (
-    <div>
+    <UserContextProvider> 
       <Header />
       <Outlet />
-    </div>
+    </UserContextProvider>
   );
 };
 
@@ -42,10 +42,6 @@ const appRoute = createBrowserRouter([
     ],
     errorElement: <Error/>,
   },
-  {
-    path:"/search",
-    element:<LocationSeachPage/>
-  }
 ]);
 
 const root = createRoot(document.getElementById("root"));

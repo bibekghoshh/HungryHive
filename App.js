@@ -8,13 +8,17 @@ import ItemCart from "./src/components/ItemCart";
 import Error from "./src/components/Error";
 import RestaurantMenu from "./src/components/RestaurantMenu";
 import UserContextProvider from "./src/context/UserContextProvider";
+import { Provider } from "react-redux";
+import appStore from "./src/redux/appStore";
 
 const App = () => {
   return (
+    <Provider store={appStore}>
     <UserContextProvider> 
       <Header />
       <Outlet />
     </UserContextProvider>
+    </Provider>
   );
 };
 

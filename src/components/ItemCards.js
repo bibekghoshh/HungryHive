@@ -2,11 +2,19 @@ import React from "react";
 import { CDN_URL } from "../utils/constrains";
 import { BsCaretUpSquare } from "react-icons/bs";
 import { BiCheckboxSquare } from "react-icons/bi";
+import { useDispatch } from "react-redux";
+import { addItem } from "../redux/cartSlice";
 
 const ItemCards = ({ items }) => {
   const { name, price, description, imageId } = items?.card?.info;
   const { vegClassifier } = items?.card?.info?.itemAttribute;
   // console.log(items);
+  const dispatch=useDispatch();
+
+
+  const handleAddItem=()=>{
+      dispatch(addItem(items));
+  }
 
   return (
     <div>
@@ -29,7 +37,7 @@ const ItemCards = ({ items }) => {
             src={CDN_URL + imageId}
             alt="Dish Photo"
           />
-          <button className="px-6 py-2 text-xs font-bold text-green-700 bg-white rounded-md mt-[-25px] w-24 border-[2px] ">
+          <button className="px-6 py-2 text-xs font-bold text-green-700 bg-white rounded-md mt-[-25px] w-24 border-[2px] " onClick={handleAddItem}>
             ADD
           </button>
         </div>

@@ -5,9 +5,11 @@ import { GoSignIn } from "react-icons/go";
 import { Link } from "react-router-dom";
 import LocationSeachPage from "./LocationSearchPage";
 import LatLngContext from "../context/LatLngContext";
+import { useSelector } from "react-redux";
 
 const Header = () => {
-  const { isSearchOpen, setIsSearchOpen } = useContext(LatLngContext);
+  const { isSearchOpen, setIsSearchOpen, headerLocation } =useContext(LatLngContext);
+  const cart=useSelector((store)=> store.cart.items);
 
   return (
     <>
@@ -19,10 +21,15 @@ const Header = () => {
               <img className="w-[100px] invert" src={logo1} alt="Logo" />
             </div>
             <div
-              className="flex items-center gap-1 cursor-pointer hover:text-blue-900"
+              className="flex items-center gap-2"
               onClick={() => setIsSearchOpen(true)}
             >
-              Kolkata,West Bengal,India <AiOutlineDown />
+              <div className="flex items-center h-6 overflow-hidden cursor-pointer max-w-72 text-slate-500 hover:text-slate-900">
+                {headerLocation}
+              </div>
+              <div className="cursor-pointer">
+                <AiOutlineDown />
+              </div>
             </div>
           </div>
           <div className="flex items-center gap-12 font-semibold list-none">

@@ -7,16 +7,16 @@ const LocationItemCard = ({ locationdetails }) => {
   const { structured_formatting, place_id } = locationdetails;
   const { main_text, secondary_text } = structured_formatting;
   
-  const {setLatlng,setIsSearchOpen}=useContext(LatLngContext);
+  const {setLatlng,setIsSearchOpen,setHeaderLocation}=useContext(LatLngContext);
 
   const handleClick = async () => {
     const response = await fetch(LAT_LNG + place_id);
     const data = await response.json();
 
     const latlngdata=data?.data[0]?.geometry?.location;
-    console.log(data?.data[0]?.geometry?.location);
     setLatlng(latlngdata);
     setIsSearchOpen(false);
+    setHeaderLocation(main_text+", "+secondary_text);
   };
 
   return (

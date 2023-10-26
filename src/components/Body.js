@@ -24,7 +24,7 @@ const Body = () => {
       );
       // const response = await fetch(RESTAURANT_LIST);
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       setRestaurantList(
         data?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
           ?.restaurants
@@ -44,7 +44,7 @@ const Body = () => {
       // restaurant.info.cuisines.toLowerCase().includes(searchText)
       // restaurant?.info?.cuisines.includes(searchText)
     );
-    console.log(searchFilter);
+    // console.log(searchFilter);
     setRestaurantList(searchFilter);
   };
 

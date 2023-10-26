@@ -9,7 +9,7 @@ const LocationSeachPage = ({onClose}) => {
   const [locationLists, setLocationLists] = useState(null);
   const {isSearchOpen,setIsSearchOpen}=useContext(LatLngContext);
 
-  console.log(locationLists);
+  // console.log(locationLists);
 
   useEffect(() => {
     if (locationSearchText.length >= 3) {

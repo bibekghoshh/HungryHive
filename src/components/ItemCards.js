@@ -6,14 +6,14 @@ import { useDispatch } from "react-redux";
 import { addItem } from "../redux/cartSlice";
 
 const ItemCards = ({ items }) => {
-  const { name, price, description, imageId } = items?.card?.info;
+  const { name, price,defaultPrice, description, imageId } = items?.card?.info;
   const { vegClassifier } = items?.card?.info?.itemAttribute;
   // console.log(items);
   const dispatch=useDispatch();
 
 
   const handleAddItem=()=>{
-      dispatch(addItem(items));
+      dispatch(addItem(items?.card?.info));
   }
 
   return (
@@ -28,7 +28,7 @@ const ItemCards = ({ items }) => {
             )}
           </div>
           <p className="text-lg font-semibold text-slate-600">{name}</p>
-          <p>₹ {price / 100}</p>
+          <p>₹ {price / 100 || defaultPrice/100}</p>
           <p className="mt-4 text-xs text-slate-400">{description}</p>
         </div>
         <div className="flex flex-col items-center w-32 mb-8">

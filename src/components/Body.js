@@ -1,42 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
-import { RESTAURANT_LIST } from "../utils/constrains";
 import RestaurentCard from "./RestaurantCard";
 import { Link } from "react-router-dom";
 import RestaurantCardShimmerUi from "./shimmerUi/RestaurantCardShimmerUi";
-import LatLngContext from "../context/LatLngContext";
 import useOnlineStatus from "../customHooks/useOnlineStatus";
+import useRestaurant from "../customHooks/useRestaurant";
 
 const Body = () => {
-  const [restaurantList, setRestaurantList] = useState(null);
-  const [newRestaurantList, setNewRestaurantList] = useState(null);
+  const {restaurantList,newRestaurantList}=useRestaurant();
   const [searchText, setSearchText] = useState("");
-
-  const { latlng } = useContext(LatLngContext);
 
   const onlineStatus=useOnlineStatus();
 
   const btnStyle =
     "px-3 py-1 text-gray-500 border-gray-400 rounded-full border-[1px] shadow-md";
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        RESTAURANT_LIST + latlng.lat + "&lng=" + latlng.lng
-      );
-      const data = await response.json();
-
-      setRestaurantList(
-        data?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
-          ?.restaurants
-      );
-      setNewRestaurantList(
-        data?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
-          ?.restaurants
-      );
-    };
-
-    fetchData();
-  }, [latlng]);
 
   const handleSearch = () => {
     const searchFilter = newRestaurantList.filter(

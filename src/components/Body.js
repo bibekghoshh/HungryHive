@@ -4,6 +4,7 @@ import RestaurentCard from "./RestaurantCard";
 import { Link } from "react-router-dom";
 import RestaurantCardShimmerUi from "./shimmerUi/RestaurantCardShimmerUi";
 import LatLngContext from "../context/LatLngContext";
+import useOnlineStatus from "../customHooks/useOnlineStatus";
 
 const Body = () => {
   const [restaurantList, setRestaurantList] = useState(null);
@@ -11,8 +12,8 @@ const Body = () => {
   const [searchText, setSearchText] = useState("");
 
   const { latlng } = useContext(LatLngContext);
-  // console.log(restaurantList);
-  //   console.log(searchText);
+
+  const onlineStatus=useOnlineStatus();
 
   const btnStyle =
     "px-3 py-1 text-gray-500 border-gray-400 rounded-full border-[1px] shadow-md";
@@ -22,9 +23,8 @@ const Body = () => {
       const response = await fetch(
         RESTAURANT_LIST + latlng.lat + "&lng=" + latlng.lng
       );
-      // const response = await fetch(RESTAURANT_LIST);
       const data = await response.json();
-      // console.log(data);
+
       setRestaurantList(
         data?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
           ?.restaurants
@@ -44,7 +44,6 @@ const Body = () => {
       // restaurant.info.cuisines.toLowerCase().includes(searchText)
       // restaurant?.info?.cuisines.includes(searchText)
     );
-    // console.log(searchFilter);
     setRestaurantList(searchFilter);
   };
 
@@ -125,6 +124,11 @@ const Body = () => {
           <div className="text-lg text-center text-slate-600">Not Found....!</div>
         )}
       </div>
+      {onlineStatus?null:(<div className="fixed h-12 px-4 py-1 text-white transition bg-slate-700 bottom-16">
+          <p className="text-sm font-medium ">Connection Error</p>
+          <p className="text-xs text-slate-300">Please check your internet connection and try again.</p>
+      </div>)}
+      
     </div>
   );
 };

@@ -8,8 +8,9 @@ import LatLngContext from "../context/LatLngContext";
 import { useSelector } from "react-redux";
 
 const Header = () => {
-  const { isSearchOpen, setIsSearchOpen, headerLocation } =useContext(LatLngContext);
-  const cart=useSelector((store)=> store.cart.items);
+  const { isSearchOpen, setIsSearchOpen, headerLocation } =
+    useContext(LatLngContext);
+  const cart = useSelector((store) => store.cart.items);
 
   return (
     <>
@@ -39,13 +40,22 @@ const Header = () => {
             <li className="cursor-pointer">
               <Link to="/about">About</Link>
             </li>
-            <li className="flex items-center cursor-pointer">
+            {/* <li className="flex items-center cursor-pointer">
               <GoSignIn />
               Sign In
-            </li>
-            <li className="text-4xl cursor-pointer">
+            </li> */}
+            <li className="text-4xl cursor-pointer ">
               <Link to="/cart">
-                <AiOutlineShoppingCart />
+                <div className="flex w-16 ">
+                  <div>
+                    <AiOutlineShoppingCart />
+                  </div>
+                  <div>
+                    {cart.length!=0?(<p className="relative z-40 px-2 text-lg rounded-full right-2 bottom-2">
+                      {cart.length}
+                    </p>):null}
+                  </div>
+                </div>
               </Link>
             </li>
           </div>

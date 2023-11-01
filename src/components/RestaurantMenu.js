@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { RESTAURANT_MENU } from "../utils/constrains";
 import { AiFillStar, AiOutlineSearch } from "react-icons/ai";
 import RestaurantCategory from "./RestaurantCategory";
 import RestaurantMenuShimmerUi from "./shimmerUi/RestaurantMenuShimmerUi";
+import {BsBagCheck} from "react-icons/bs";
+import { useSelector } from "react-redux";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
   const [restaurantMenu, setRestaurantMenu] = useState(null);
-
-  // console.log(restaurantMenu);
-  //   console.log(category);
+  const items=useSelector((store) => store.cart.items);
+  let totalSum=0;
+  items.forEach(item => {
+    totalSum=totalSum+(item.price / 100 || item.defaultPrice / 100);
+  });
 
   useEffect(() => {
     fetchData();
@@ -19,7 +23,6 @@ const RestaurantMenu = () => {
   const fetchData = async () => {
     const response = await fetch(RESTAURANT_MENU + resId);
     const data = await response.json();
-
     setRestaurantMenu(data?.data);
     // console.log(data);
   };
@@ -38,7 +41,7 @@ const RestaurantMenu = () => {
 
   return (
     <div className="flex items-center justify-center mt-8  min-w-[1300px]">
-      <div className="w-[900px]  flex flex-col gap-5">
+      <div className="w-[900px]  flex flex-col gap-5 ">
         <div className="flex justify-between">
           <div className="text-[10px] text-slate-400">
             <span className="cursor-pointer hover:text-slate-600">Home </span> /{" "}
@@ -72,6 +75,10 @@ const RestaurantMenu = () => {
             ))
           }
         </div>
+        {items.length!=0?(<div className="fixed w-[880px] h-12 text-white bg-green-500 bottom-8 flex items-center justify-between pr-10 pl-2 font-semibold">
+          <div>{items.length} Item | ₹{totalSum}</div>
+          <Link to="/cart"><div className="flex items-center gap-2 cursor-pointer"> <p>VIEW CART</p> <BsBagCheck className="text-xl"/></div></Link>
+        </div>):null}
       </div>
     </div>
   );

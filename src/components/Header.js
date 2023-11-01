@@ -25,7 +25,7 @@ const Header = () => {
               className="flex items-center gap-2"
               onClick={() => setIsSearchOpen(true)}
             >
-              <div className="flex items-center h-6 overflow-hidden cursor-pointer max-w-72 text-slate-500 hover:text-slate-900">
+              <div className="flex items-center h-6 max-w-xs overflow-hidden cursor-pointer text-slate-500 hover:text-slate-900">
                 {headerLocation}
               </div>
               <div className="cursor-pointer">

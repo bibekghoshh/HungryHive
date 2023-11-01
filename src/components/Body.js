@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import RestaurentCard from "./RestaurantCard";
 import { Link } from "react-router-dom";
 import RestaurantCardShimmerUi from "./shimmerUi/RestaurantCardShimmerUi";
@@ -6,33 +6,26 @@ import useOnlineStatus from "../customHooks/useOnlineStatus";
 import useRestaurant from "../customHooks/useRestaurant";
 
 const Body = () => {
-  const {restaurantList,newRestaurantList}=useRestaurant();
+  const { restaurantList, newRestaurantList, updateData } = useRestaurant();
   const [searchText, setSearchText] = useState("");
 
-  const onlineStatus=useOnlineStatus();
+  const onlineStatus = useOnlineStatus();
 
   const btnStyle =
     "px-3 py-1 text-gray-500 border-gray-400 rounded-full border-[1px] shadow-md";
 
   const handleSearch = () => {
-    const searchFilter = newRestaurantList.filter(
-      (restaurant) => restaurant?.info?.name?.toLowerCase().includes(searchText) //||
-      // restaurant.info.cuisines.toLowerCase().includes(searchText)
-      // restaurant?.info?.cuisines.includes(searchText)
+    const searchFilter = newRestaurantList.filter((restaurant) =>
+      restaurant?.info?.name?.toLowerCase().includes(searchText)
     );
     setRestaurantList(searchFilter);
   };
-
-  //   const a=newRestaurantList[0]?.info?.name?.toLowerCase().includes("mc");
-  //   console.log(a);
-  //   const b=newRestaurantList[0]?.info?.cuisines?.filter((c)=>(c.toLowerCase().includes("pizzas")));
-  //         console.log(b);
 
   const rating = () => {
     const rating = newRestaurantList.filter(
       (restaurant) => restaurant.info.avgRating > 4
     );
-    setRestaurantList(rating);
+    updateData(rating);
   };
   const costBetween300To600 = () => {
     const cost = newRestaurantList.filter(
@@ -40,16 +33,16 @@ const Body = () => {
         parseInt(restaurant.info.costForTwo.slice(1, 4)) > 300 &&
         parseInt(restaurant.info.costForTwo.slice(1, 4)) < 600
     );
-    setRestaurantList(cost);
+    updateData(cost);
   };
   const costLessThan300 = () => {
     const cost = newRestaurantList.filter(
       (restaurant) => parseInt(restaurant.info.costForTwo.slice(1, 4)) < 300
     );
-    setRestaurantList(cost);
+    updateData(cost);
   };
   const showAll = () => {
-    setRestaurantList(newRestaurantList);
+    updateData(newRestaurantList);
   };
 
   return (
@@ -97,14 +90,19 @@ const Body = () => {
             </Link>
           ))
         ) : (
-          <div className="text-lg text-center text-slate-600">Not Found....!</div>
+          <div className="text-lg text-center text-slate-600">
+            Not Found....!
+          </div>
         )}
       </div>
-      {onlineStatus?null:(<div className="fixed h-12 px-4 py-1 text-white transition bg-slate-700 bottom-16">
+      {onlineStatus ? null : (
+        <div className="fixed h-12 px-4 py-1 text-white transition bg-slate-700 bottom-16">
           <p className="text-sm font-medium ">Connection Error</p>
-          <p className="text-xs text-slate-300">Please check your internet connection and try again.</p>
-      </div>)}
-      
+          <p className="text-xs text-slate-300">
+            Please check your internet connection and try again.
+          </p>
+        </div>
+      )}
     </div>
   );
 };

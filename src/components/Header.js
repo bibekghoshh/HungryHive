@@ -22,10 +22,10 @@ const Header = () => {
               <img className="w-[100px] invert" src={logo1} alt="Logo" />
             </div>
             <div
-              className="flex items-center gap-2"
+              className="flex items-center"
               onClick={() => setIsSearchOpen(true)}
             >
-              <div className="flex items-center h-6 max-w-xs overflow-hidden cursor-pointer text-slate-500 hover:text-slate-900">
+              <div className="flex h-6 max-w-xs overflow-hidden cursor-pointer text-slate-500 hover:text-slate-900">
                 {headerLocation}
               </div>
               <div className="cursor-pointer">

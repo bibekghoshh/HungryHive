@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { GoLocation } from "react-icons/go";
 import { LAT_LNG } from "../utils/constrains";
 import LatLngContext from "../context/LatLngContext";
+import { Link } from "react-router-dom";
 
 const LocationItemCard = ({ locationdetails }) => {
   const { structured_formatting, place_id } = locationdetails;
@@ -20,6 +21,7 @@ const LocationItemCard = ({ locationdetails }) => {
   };
 
   return (
+    <Link to="/">
     <div className="w-[370px]" onClick={handleClick}>
       <div className="flex gap-4 pt-6 mx-4 cursor-pointer hover:text-orange-400">
         <div>
@@ -34,6 +36,7 @@ const LocationItemCard = ({ locationdetails }) => {
       </div>
       <div className="w-[335px] ml-12 border-dashed border-[1px] border-slate-400"></div>
     </div>
+    </Link>
   );
 };
 

@@ -6,15 +6,15 @@ import { useDispatch } from "react-redux";
 import { addItem } from "../redux/cartSlice";
 
 const ItemCards = ({ items }) => {
-  const { name, price,defaultPrice, description, imageId } = items?.card?.info;
+  const { name, price, defaultPrice, description, imageId } = items?.card?.info;
   const { vegClassifier } = items?.card?.info?.itemAttribute;
   // console.log(items);
-  const dispatch=useDispatch();
+  
+  const dispatch = useDispatch();
 
-
-  const handleAddItem=()=>{
-      dispatch(addItem(items?.card?.info));
-  }
+  const handleAddItem = () => {
+    dispatch(addItem(items?.card?.info));
+  };
 
   return (
     <div>
@@ -28,7 +28,7 @@ const ItemCards = ({ items }) => {
             )}
           </div>
           <p className="text-lg font-semibold text-slate-600">{name}</p>
-          <p>₹ {price / 100 || defaultPrice/100}</p>
+          <p>₹ {price / 100 || defaultPrice / 100}</p>
           <p className="mt-4 text-xs text-slate-400">{description}</p>
         </div>
         <div className="flex flex-col items-center w-32 mb-8">
@@ -37,7 +37,10 @@ const ItemCards = ({ items }) => {
             src={CDN_URL + imageId}
             alt="Dish Photo"
           />
-          <button className="px-6 py-2 text-xs font-bold text-green-700 bg-white rounded-md mt-[-25px] w-24 border-[2px] " onClick={handleAddItem}>
+          <button
+            className="px-6 py-2 text-xs font-bold text-green-700 bg-white rounded-md mt-[-25px] w-24 border-[2px] "
+            onClick={handleAddItem}
+          >
             ADD
           </button>
         </div>

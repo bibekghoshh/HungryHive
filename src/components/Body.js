@@ -18,7 +18,7 @@ const Body = () => {
     const searchFilter = newRestaurantList.filter((restaurant) =>
       restaurant?.info?.name?.toLowerCase().includes(searchText)
     );
-    setRestaurantList(searchFilter);
+    updateData(searchFilter);
   };
 
   const rating = () => {
